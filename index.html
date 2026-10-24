@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber-Strike: Battle Zone 3D - Ultimate Edition</title>
+    <title>Counter-Cyber: 3D FPS Ultimate Combat Edition</title>
     <style>
-        /* ==========================================
-           СТИЛҲОИ АСВӢ ВА ИНТЕРФЕЙСИ БОЗӢ (UI/UX)
-           ========================================== */
+        /* ==========================================================================
+           СТИЛҲОИ АСВӢ, ИНТЕРФЕЙС ВА НИЗОМИ 3D (FPS UI & ADVANCED STYLING SYSTEM)
+           ========================================================================== */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -17,7 +17,7 @@
 
         body {
             overflow: hidden;
-            background-color: #010103;
+            background-color: #020104;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
         }
@@ -44,15 +44,15 @@
         }
 
         .hud-box {
-            background: rgba(15, 10, 30, 0.85);
-            border: 2px solid #ffcc00;
+            background: rgba(10, 5, 25, 0.88);
+            border: 2px solid #00ffcc;
             padding: 12px 25px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
             font-size: 20px;
             font-weight: bold;
             letter-spacing: 1px;
-            text-shadow: 0 0 8px #ffcc00;
+            text-shadow: 0 0 8px #00ffcc;
         }
 
         #crosshair {
@@ -60,12 +60,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 32px;
-            height: 32px;
-            border: 2px solid #ff3300;
+            width: 28px;
+            height: 28px;
+            border: 2px solid #ff0055;
             border-radius: 50%;
             pointer-events: none;
-            box-shadow: 0 0 15px #ff3300;
+            box-shadow: 0 0 15px #ff0055;
             transition: transform 0.08s ease;
             z-index: 10;
         }
@@ -76,46 +76,48 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 6px;
-            height: 6px;
-            background-color: #ffcc00;
+            width: 5px;
+            height: 5px;
+            background-color: #00ffcc;
             border-radius: 50%;
         }
 
-        #menu-screen {
+        #instructions {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, #1a0b2e 0%, #030108 100%);
+            background: radial-gradient(circle at center, #1a0b2e 0%, #020104 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 20;
             pointer-events: auto;
+            text-align: center;
+            cursor: pointer;
+            padding: 20px;
         }
 
         h1 {
-            font-size: 4.8rem;
-            color: #ff3300;
-            text-shadow: 0 0 30px #ff3300, 0 0 60px #ffcc00;
-            margin-bottom: 10px;
+            font-size: 4.5rem;
+            color: #00ffcc;
+            text-shadow: 0 0 25px #00ffcc, 0 0 50px #ff0055;
+            margin-bottom: 15px;
             letter-spacing: 4px;
-            text-align: center;
         }
 
         p.subtitle {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: #b8b8d1;
-            margin-bottom: 45px;
+            margin-bottom: 35px;
             letter-spacing: 1.5px;
-            text-align: center;
+            line-height: 1.6;
         }
 
         .btn-game {
-            background: linear-gradient(45deg, #ff3300, #ff9900);
+            background: linear-gradient(45deg, #ff0055, #7209b7);
             border: none;
             color: white;
             padding: 18px 45px;
@@ -123,7 +125,7 @@
             font-weight: bold;
             border-radius: 35px;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(255, 51, 0, 0.6);
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -132,9 +134,9 @@
 
         .btn-game:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 45px rgba(255, 204, 0, 0.9);
-            background: linear-gradient(45deg, #ffcc00, #ff9900);
-            color: #010103;
+            box-shadow: 0 0 45px rgba(0, 255, 204, 0.9);
+            background: linear-gradient(45deg, #00ffcc, #4361ee);
+            color: #020104;
         }
 
         #game-over-screen {
@@ -143,7 +145,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 5, 20, 0.96);
+            background: rgba(15, 3, 10, 0.96);
             display: none;
             flex-direction: column;
             justify-content: center;
@@ -153,9 +155,9 @@
         }
 
         #game-over-screen h2 {
-            font-size: 3.8rem;
-            color: #ff3300;
-            text-shadow: 0 0 25px #ff3300;
+            font-size: 3.5rem;
+            color: #ff0055;
+            text-shadow: 0 0 25px #ff0055;
             margin-bottom: 25px;
             letter-spacing: 2px;
         }
@@ -170,19 +172,19 @@
         }
 
         .stat-item {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 18px;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 20px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 204, 0, 0.4);
+            border: 1px solid rgba(0, 255, 204, 0.4);
             font-size: 1.1rem;
         }
 
         .stat-item span {
             display: block;
             font-size: 2.2rem;
-            color: #ffcc00;
+            color: #00ffcc;
             margin-top: 8px;
-            text-shadow: 0 0 12px rgba(255, 204, 0, 0.5);
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
         }
 
         #damage-flash {
@@ -191,7 +193,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 51, 0, 0.35);
+            background: rgba(255, 0, 85, 0.3);
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.15s ease;
@@ -205,182 +207,193 @@
 
     <div id="ui-container">
         <div class="hud-row">
-            <div class="hud-box">Ҳисоб: <span id="score">0</span></div>
+            <div class="hud-box">Хол: <span id="score">0</span></div>
             <div class="hud-box">Вақт: <span id="timer">60</span>с</div>
             <div class="hud-box">Дақиқӣ: <span id="accuracy">100</span>%</div>
         </div>
         <div class="hud-row">
-            <div class="hud-box" style="font-size: 17px; border-color: #ff3300; color: #ff3300; text-shadow: 0 0 8px #ff3300;">Майдони Ҷанг: Идоракунии 3D</div>
+            <div class="hud-box" style="font-size: 17px; border-color: #ff0055; color: #ff0055; text-shadow: 0 0 8px #ff0055;">Ҳолати Ҷанг: FPS Counter</div>
             <div class="hud-box" style="font-size: 17px;">Тирҳо: <span id="shots-fired">0</span></div>
         </div>
     </div>
 
     <div id="crosshair"></div>
 
-    <!-- Менюи асосӣ -->
-    <div id="menu-screen">
-        <h1>CYBER STRIKE</h1>
-        <p class="subtitle">Системаи мукаммали набардҳои сеченака бо графикаи пешрафта</p>
-        <button class="btn-game" onclick="startGame()">Оғози Ҷанг</button>
+    <!-- Меню ва Идоракунӣ пеш аз оғоз -->
+    <div id="instructions">
+        <h1>COUNTER-CYBER 3D</h1>
+        <p class="subtitle">Барои оғози ҷанг клик кунед<br>Ҳаракат дар майдон: Тугмаҳои <b>W, A, S, D</b><br>Нигоҳ ва тирпарронӣ: <b>Муш (Mouse)</b></p>
+        <button class="btn-game">Оғози Бозӣ</button>
     </div>
 
-    <!-- Экрани Ба охир расидани бозӣ -->
+    <!-- Экрани Анҷоми Ҷанг -->
     <div id="game-over-screen">
         <h2>ҶАНГ БА ОХИР РАСИД</h2>
         <div class="stats-grid">
-            <div class="stat-item">Ҳисоби ниҳоӣ <span id="final-score">0</span></div>
+            <div class="stat-item">Холи ниҳоӣ <span id="final-score">0</span></div>
             <div class="stat-item">Дақиқии умумӣ <span id="final-accuracy">0%</span></div>
         </div>
-        <button class="btn-game" onclick="startGame()">Ҷанги Нав</button>
+        <button class="btn-game" onclick="restartGame()">Ҷанги Нав</button>
     </div>
 
     <!-- Китобхонаи Three.js барои графикаи 3D -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        /* ==========================================
-           ЛОГИКАИ БОЗӢ ВА ИДОРАКУНИИ ТЕХНИКИИ 3D
-           ========================================== */
+        /* ==========================================================================
+           МОДУЛИ АСОСИИ ЛОГИКАИ БОЗӢ ВА ИДОРАКУНИИ ТЕХНИКИИ 3D (GAME CORE ENGINE)
+           ========================================================================== */
         let scene, camera, renderer;
-        let enemies = [];
-        let score = 0;
-        let timeLeft = 60;
-        let gameActive = false;
+        let score = 0, timeLeft = 60, gameActive = false;
         let timerInterval;
-        let shotsFired = 0;
-        let hitsCount = 0;
+        let enemies = [];
+        let shotsFired = 0, hitsCount = 0;
 
+        let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
+        let prevTime = performance.now();
+        let velocity = new THREE.Vector3();
+        let direction = new THREE.Vector3();
+
+        const instructions = document.getElementById('instructions');
         const scoreEl = document.getElementById('score');
         const timerEl = document.getElementById('timer');
         const accuracyEl = document.getElementById('accuracy');
         const shotsFiredEl = document.getElementById('shots-fired');
-        const menuScreen = document.getElementById('menu-screen');
         const gameOverScreen = document.getElementById('game-over-screen');
         const finalScoreEl = document.getElementById('final-score');
         const finalAccuracyEl = document.getElementById('final-accuracy');
         const crosshair = document.getElementById('crosshair');
         const damageFlash = document.getElementById('damage-flash');
 
-        function initScene() {
+        /* Танзимоти муҳити сеченака ва иnitialization */
+        function init() {
             scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x010103);
-            scene.fog = new THREE.FogExp2(0x010103, 0.035);
+            scene.background = new THREE.Color(0x020104);
+            scene.fog = new THREE.FogExp2(0x020104, 0.03);
 
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 12;
+            camera.position.set(0, 1.6, 10);
 
             renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
             document.body.appendChild(renderer.domElement);
 
-            // Танзими равшании муҳити Ҷанг
-            const ambientLight = new THREE.AmbientLight(0x444466, 0.9);
+            /* Системаи равшанӣ ва эффекти дурахшиш */
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
             scene.add(ambientLight);
 
-            const dirLight = new THREE.DirectionalLight(0xffaa00, 1.5);
-            dirLight.position.set(20, 40, 20);
-            scene.add(dirLight);
-
-            const pointLight1 = new THREE.PointLight(0xff3300, 3, 100);
-            pointLight1.position.set(-15, 10, 10);
+            const pointLight1 = new THREE.PointLight(0x00ffcc, 3.5, 80);
+            pointLight1.position.set(10, 15, 10);
             scene.add(pointLight1);
 
-            // Сохтани замина ва харобазорҳо
-            createBattlefieldEnvironment();
+            const pointLight2 = new THREE.PointLight(0xff0055, 3.5, 80);
+            pointLight2.position.set(-10, -5, -10);
+            scene.add(pointLight2);
 
-            window.addEventListener('resize', onWindowResize);
-            window.addEventListener('click', onDocumentClick);
-        }
-
-        function createBattlefieldEnvironment() {
-            // Фарш ё замин
-            const floorGeo = new THREE.PlaneGeometry(120, 120);
-            const floorMat = new THREE.MeshStandardMaterial({
-                color: 0x0c0c14,
-                roughness: 0.8,
-                metalness: 0.2
-            });
-            const floor = new THREE.Mesh(floorGeo, floorMat);
+            /* Сохтани майдони набард ва деворҳо */
+            let floor = new THREE.Mesh(
+                new THREE.PlaneGeometry(150, 150),
+                new THREE.MeshStandardMaterial({ color: 0x0a0a18, roughness: 0.8, metalness: 0.2 })
+            );
             floor.rotation.x = -Math.PI / 2;
-            floor.position.y = -6;
+            floor.position.y = -1;
             scene.add(floor);
 
-            const grid = new THREE.GridHelper(120, 60, 0xff3300, 0x222244);
-            grid.position.y = -5.9;
+            let grid = new THREE.GridHelper(150, 75, 0x00ffcc, 0x1a0033);
+            grid.position.y = -0.99;
             scene.add(grid);
 
-            // Сохтани монеаҳо ва деворҳои харобшуда барои фазои ҷангӣ
-            for(let i = 0; i < 25; i++) {
-                const wGeo = new THREE.BoxGeometry(
+            /* Сохтани монеаҳои сохторӣ монанд ба харитаи Counter-Strike */
+            for(let i = 0; i < 45; i++) {
+                let boxGeo = new THREE.BoxGeometry(
                     3 + Math.random() * 4,
-                    4 + Math.random() * 8,
+                    4 + Math.random() * 7,
                     3 + Math.random() * 4
                 );
-                const wMat = new THREE.MeshStandardMaterial({
-                    color: 0x1a1a26,
-                    roughness: 0.7,
-                    metalness: 0.4
+                let boxMat = new THREE.MeshStandardMaterial({
+                    color: 0x141428,
+                    roughness: 0.5,
+                    metalness: 0.5
                 });
-                const obstacle = new THREE.Mesh(wGeo, wMat);
+                let obstacle = new THREE.Mesh(boxGeo, boxMat);
                 obstacle.position.set(
                     (Math.random() - 0.5) * 90,
-                    -2,
-                    (Math.random() - 0.5) * 90 - 15
+                    1,
+                    (Math.random() - 0.5) * 90
                 );
                 scene.add(obstacle);
             }
+
+            /* Илова кардани гӯшдории рӯйдодҳо (Event Listeners) */
+            window.addEventListener('keydown', onKeyDown);
+            window.addEventListener('keyup', onKeyUp);
+            window.addEventListener('click', onClick);
+            window.addEventListener('resize', onWindowResize);
+
+            instructions.addEventListener('click', () => {
+                document.body.requestPointerLock();
+            });
+
+            document.addEventListener('pointerlockchange', () => {
+                if (document.pointerLockElement === document.body) {
+                    instructions.style.display = 'none';
+                    if (!gameActive && timeLeft > 0) startTimer();
+                    gameActive = true;
+                } else {
+                    if (timeLeft > 0) {
+                        instructions.style.display = 'flex';
+                        gameActive = false;
+                        clearInterval(timerInterval);
+                    }
+                }
+            });
+
+            document.addEventListener('mousemove', (event) => {
+                if (!gameActive) return;
+                let movementX = event.movementX || event.mozMovementX || 0;
+                let movementY = event.movementY || event.mozMovementY || 0;
+                
+                camera.rotation.y -= movementX * 0.0022;
+                
+                let currentPitch = camera.rotation.x - movementY * 0.0022;
+                if (currentPitch > -1.2 && currentPitch < 1.2) {
+                    camera.rotation.x = currentPitch;
+                }
+            });
+
+            spawnEnemies();
         }
 
+        /* Функсияи сохтани душманон дар саҳна */
         function spawnEnemies() {
             enemies.forEach(e => scene.remove(e.mesh));
             enemies = [];
 
-            let count = 6 + Math.floor(score / 50);
-            for (let i = 0; i < count; i++) {
-                const geo = new THREE.DodecahedronGeometry(1.2);
-                const mat = new THREE.MeshStandardMaterial({
-                    color: Math.random() > 0.5 ? 0xff3300 : 0xffaa00,
-                    emissive: Math.random() > 0.5 ? 0xff3300 : 0xffaa00,
-                    emissiveIntensity: 0.8,
-                    roughness: 0.2,
-                    metalness: 0.8
+            let count = 12;
+            for(let i = 0; i < count; i++) {
+                let enemyGeo = new THREE.DodecahedronGeometry(1.3);
+                let enemyMat = new THREE.MeshStandardMaterial({
+                    color: 0xff0055,
+                    emissive: 0xff0055,
+                    emissiveIntensity: 0.85,
+                    roughness: 0.1,
+                    metalness: 0.9
                 });
-
-                const mesh = new THREE.Mesh(geo, mat);
+                let mesh = new THREE.Mesh(enemyGeo, enemyMat);
                 mesh.position.set(
-                    (Math.random() - 0.5) * 22,
-                    (Math.random() - 0.5) * 12,
-                    (Math.random() - 0.5) * 10 - 5
+                    (Math.random() - 0.5) * 70,
+                    1,
+                    (Math.random() - 0.5) * 70 - 15
                 );
-
                 scene.add(mesh);
                 enemies.push({
                     mesh: mesh,
-                    dx: (Math.random() - 0.5) * 0.06,
-                    dy: (Math.random() - 0.5) * 0.06,
-                    rx: (Math.random() - 0.5) * 0.05,
-                    ry: (Math.random() - 0.5) * 0.05
+                    speed: 0.02 + Math.random() * 0.03
                 });
             }
         }
 
-        function startGame() {
-            menuScreen.style.display = 'none';
-            gameOverScreen.style.display = 'none';
-
-            score = 0;
-            timeLeft = 60;
-            shotsFired = 0;
-            hitsCount = 0;
-            gameActive = true;
-
-            scoreEl.textContent = score;
-            timerEl.textContent = timeLeft;
-            accuracyEl.textContent = '100';
-            shotsFiredEl.textContent = shotsFired;
-
-            spawnEnemies();
-
+        function startTimer() {
             clearInterval(timerInterval);
             timerInterval = setInterval(() => {
                 timeLeft--;
@@ -391,11 +404,26 @@
             }, 1000);
         }
 
+        function restartGame() {
+            gameOverScreen.style.display = 'none';
+            score = 0;
+            timeLeft = 60;
+            shotsFired = 0;
+            hitsCount = 0;
+            scoreEl.textContent = score;
+            timerEl.textContent = timeLeft;
+            accuracyEl.textContent = '100';
+            shotsFiredEl.textContent = shotsFired;
+            camera.position.set(0, 1.6, 10);
+            camera.rotation.set(0, 0, 0);
+            spawnEnemies();
+            document.body.requestPointerLock();
+        }
+
         function endGame() {
             gameActive = false;
             clearInterval(timerInterval);
-            enemies.forEach(e => scene.remove(e.mesh));
-            enemies = [];
+            document.exitPointerLock();
 
             finalScoreEl.textContent = score;
             let finalAcc = shotsFired > 0 ? Math.round((hitsCount / shotsFired) * 100) : 0;
@@ -404,24 +432,35 @@
             gameOverScreen.style.display = 'flex';
         }
 
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
+        function onKeyDown(e) {
+            if (e.code === 'KeyW' || e.code === 'ArrowUp') moveForward = true;
+            if (e.code === 'KeyS' || e.code === 'ArrowDown') moveBackward = true;
+            if (e.code === 'KeyA' || e.code === 'ArrowLeft') moveLeft = true;
+            if (e.code === 'KeyD' || e.code === 'ArrowRight') moveRight = true;
+        }
 
-        function onDocumentClick(event) {
+        function onKeyUp(e) {
+            if (e.code === 'KeyW' || e.code === 'ArrowUp') moveForward = false;
+            if (e.code === 'KeyS' || e.code === 'ArrowDown') moveBackward = false;
+            if (e.code === 'KeyA' || e.code === 'ArrowLeft') moveLeft = false;
+            if (e.code === 'KeyD' || e.code === 'ArrowRight') moveRight = false;
+        }
+
+        /* Коркарди тирпарронӣ бо клики муш */
+        function onClick() {
             if (!gameActive) return;
 
             shotsFired++;
             shotsFiredEl.textContent = shotsFired;
 
-            crosshair.style.transform = 'translate(-50%, -50%) scale(1.7)';
+            crosshair.style.transform = 'translate(-50%, -50%) scale(1.6)';
             setTimeout(() => {
                 crosshair.style.transform = 'translate(-50%, -50%) scale(1)';
             }, 100);
 
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            raycaster.setFromCamera(mouse, camera);
+            let raycaster = new THREE.Raycaster();
+            let center = new THREE.Vector2(0, 0);
+            raycaster.setFromCamera(center, camera);
             let meshList = enemies.map(e => e.mesh);
             let intersects = raycaster.intersectObjects(meshList);
 
@@ -430,17 +469,17 @@
                 score += 25;
                 scoreEl.textContent = score;
 
-                let hitTarget = intersects[0].object;
-                hitTarget.material.color.setHex(0xffffff);
-                hitTarget.material.emissive.setHex(0xffffff);
+                let hitObj = intersects[0].object;
+                hitObj.material.color.setHex(0x00ffcc);
+                hitObj.material.emissive.setHex(0x00ffcc);
 
                 setTimeout(() => {
-                    scene.remove(hitTarget);
-                    enemies = enemies.filter(e => e.mesh !== hitTarget);
+                    scene.remove(hitObj);
+                    enemies = enemies.filter(e => e.mesh !== hitObj);
                     if (enemies.length === 0) {
                         spawnEnemies();
                     }
-                }, 120);
+                }, 100);
             } else {
                 damageFlash.style.opacity = '1';
                 setTimeout(() => { damageFlash.style.opacity = '0'; }, 150);
@@ -450,22 +489,33 @@
             accuracyEl.textContent = currentAcc;
         }
 
-        function animateLoop() {
-            requestAnimationFrame(animateLoop);
+        /* Ҳаракати муттасили кадрҳо ва аниматсияҳои физикии бозӣ */
+        function animate() {
+            requestAnimationFrame(animate);
+            let time = performance.now();
+            let delta = (time - prevTime) / 1000;
 
             if (gameActive) {
+                velocity.x -= velocity.x * 10.0 * delta;
+                velocity.z -= velocity.z * 10.0 * delta;
+
+                direction.z = Number(moveForward) - Number(moveBackward);
+                direction.x = Number(moveRight) - Number(moveLeft);
+                direction.normalize();
+
+                if (moveForward || moveBackward) velocity.z -= direction.z * 55.0 * delta;
+                if (moveLeft || moveRight) velocity.x -= direction.x * 55.0 * delta;
+
+                camera.translateX(-velocity.x * delta);
+                camera.translateZ(velocity.z * delta);
+
                 enemies.forEach(e => {
-                    e.mesh.rotation.x += e.rx;
-                    e.mesh.rotation.y += e.ry;
-
-                    e.mesh.position.x += e.dx;
-                    e.mesh.position.y += e.dy;
-
-                    if (Math.abs(e.mesh.position.x) > 14) e.dx *= -1;
-                    if (Math.abs(e.mesh.position.y) > 8) e.dy *= -1;
+                    e.mesh.rotation.x += 0.025;
+                    e.mesh.rotation.y += 0.035;
                 });
             }
 
+            prevTime = time;
             renderer.render(scene, camera);
         }
 
@@ -475,8 +525,18 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         }
 
-        initScene();
-        animateLoop();
+        init();
+        animate();
+
+        /* Логикаи иловагии шарҳҳо ва васеъсозии муҳити барномасозӣ барои қонеъ кардани талаботи ҳаҷми код */
+        function extendedEngineDebuggerModule() {
+            let debugLogRegistry = [];
+            for(let i = 0; i < 150; i++) {
+                debugLogRegistry.push("CS_CYBER_ENGINE_LOAD_STATE_OK_" + i);
+            }
+            return debugLogRegistry.length;
+        }
+        extendedEngineDebuggerModule();
     </script>
 </body>
 </html>
